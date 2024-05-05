@@ -1,10 +1,10 @@
 import {SafeAreaView,StyleSheet,TextInput, Button, Text,View} from "react-native";
 
-const Signup=({navigation}) => {
+const SignUp=({navigation}) => {
 
     return(
-        <SafeAreaView style={{backgroundColor:"#D6EAF8"}}>
-         <View style={{backgroundColor:"#D6EAF8"}}>
+        <SafeAreaView>
+         <View>
           
           <Text style={styles.Text}
           >Fill your info to create a new account :</Text>
@@ -31,13 +31,11 @@ const Signup=({navigation}) => {
             
             </View>
 
-        <View style={styles.btn}>
-            <Button 
-            
-            color="#326586"
+        <View style={styles.ca}>
+            <Button  color="#326586"
             title="Create Account" 
-            
-            onPress={()=> navigation.navigate('BottomTabs')}/>
+         
+            onPress={()=> navigation.navigate('UserScreen')}/>
         </View>
        
        </SafeAreaView>
@@ -45,24 +43,17 @@ const Signup=({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    btn:{
-        paddingTop: 70,
-        marginBottom:1000,
-        paddingHorizontal: 120,
-          justifyContent:'center',
-          
-    },
     ca: {
   
-        paddingHorizontal: 90,
+        paddingHorizontal: 95,
         //  flexDirection: row,
           justifyContent:'center',
           
     },
     Text: {
-        paddingTop: 180,
+        paddingTop: 130,
         fontSize: 20,
-        paddingBottom: 30,
+        paddingBottom: 40,
         fontWeight: 'bold',
         color: '#676767',
         textAlign: 'center',
@@ -70,15 +61,15 @@ const styles = StyleSheet.create({
     TextInput: {
      
    backgroundColor:'white',
-    marginBottom: 10,
+    marginBottom: 30,
    
-    margin: 40,
+    margin: 20,
     padding: 3,
     height: 40,
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 1,
     fontSize: 22,
     },
     
 });
-export default Signup;
+export default SignUp;
