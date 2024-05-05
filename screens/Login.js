@@ -2,9 +2,9 @@ import React from 'react';
 import {SafeAreaView, Text,Image, View, StyleSheet,TextInput, TouchableOpacity,Button } from 'react-native';
 
 
-const HomeScreen=({navigation}) => {
+const Login=({navigation}) => {
     return(
-           <SafeAreaView  style={{flex:1,justifyContent:'center'  }}>
+           <SafeAreaView  style={{flex:1,justifyContent:'center' ,backgroundColor:"white"  }}>
   <View style={{paddingHorizontal:25}}>
      <View style={styles.bg}>
       <Image 
@@ -24,9 +24,9 @@ const HomeScreen=({navigation}) => {
 <View style={styles.to2} > 
 <Button 
  //color="#3b95ec" 
- color="#278beb"
+ color="#3498DB"
   title=" Log in" 
-            onPress={()=> navigation.navigate('UserScreen')}/>
+            onPress={()=> navigation.navigate("BottomTabs")}/>
 </View>
 <View style={styles.dont}  >
     <Text >Don't have an account ?</Text></View>
@@ -34,7 +34,7 @@ const HomeScreen=({navigation}) => {
 <Button 
 color="#113bb1"
  style={styles.bu2} title="Sign up" 
-            onPress={()=> navigation.navigate('SignUp')}/>
+            onPress={()=> navigation.navigate('Signup')}/>
 </View>
         </View>
         </SafeAreaView>
@@ -45,18 +45,18 @@ color="#113bb1"
 const styles = StyleSheet.create({
     text1: {
      // fontFamily: 'Velvet',
-      fontSize: 15,
+      fontSize: 20,
       color: '#003974',
       fontWeight: 'bold',
-      marginBottom: 5,
+      marginBottom: 15,
     },
     bg:{
       paddingLeft: -30,
-      backgroundColor: "#ffffff",
+      backgroundColor:"white",
     },
     image: {
-      width: 300,
-      height: 300,
+      width: 380,
+      height: 380,
     },
    
     int1 : {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   flexDirection: 'row',
   borderBottomColor: '#ccc',
   borderBottomWidth: 1,
-  marginBottom: 10,
+  marginBottom: 30,
   paddingHorizontal: 10,
   backgroundColor:'#d9e6f1',
     },
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     to2: {
         paddingHorizontal: 95,
     paddingBottom: 30,
-    paddingTop: 10,
+    paddingTop: 20,
       fontWeight: 'bold',
 
   textAlign: 'center',
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
    
      },
   });
-export default HomeScreen;
+export default Login;
