@@ -22,7 +22,7 @@ const Home = () => {
                 <Item />
                 <Item />
                 <Item />
-                <Item />
+              
                 <View style={styles.emptyView}></View>
             </ScrollView>
         </View>
