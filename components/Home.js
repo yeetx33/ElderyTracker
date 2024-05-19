@@ -4,6 +4,36 @@ import { COLORS, SIZES } from "../constents/theme";
 import { Ionicons } from '@expo/vector-icons';
 import Item from "./Item";
 
+const data= [
+    {
+        name: "saja",
+        curPlace: "(from GPS)",
+        heartBeat:"100 bpm",
+        bloodPreaser: "115/75 mm Hg",
+        bodyTmp:"36.3 C"
+    },
+    {
+        name: "ahmad",
+        curPlace: "(from GPS)",
+        heartBeat:"78 bpm",
+        bloodPreaser: "122/85 mm Hg",
+        bodyTmp:"38.3 C"
+    },
+    {
+        name: "ali",
+        curPlace: "(from GPS)",
+        heartBeat:"75 bpm",
+        bloodPreaser: "122/85 mm Hg",
+        bodyTmp:"63.3 C"
+    },
+    {
+        name: "sam",
+        curPlace: "(from GPS)",
+        heartBeat:"75 bpm",
+        bloodPreaser: "122/85 mm Hg",
+        bodyTmp:"63.3 C"
+    },
+]
 
 const Home = () => {
     
@@ -18,11 +48,10 @@ const Home = () => {
                     <Ionicons name="person-add" size={26} color={COLORS.secondary} />
                 </Pressable>
             </View>
-            <ScrollView style={styles.list}>
-                <Item />
-                <Item />
-                <Item />
-              
+            <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
+                {data.map((item, index) => {
+                    return <Item key={index} item={item}/>
+                })}
                 <View style={styles.emptyView}></View>
             </ScrollView>
         </View>

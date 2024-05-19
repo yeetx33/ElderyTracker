@@ -3,19 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, FONTS } from "../constents/theme";
 
-const Item = () => {
+const Item = ({item}) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Ionicons name="person-circle" size={50} color={COLORS.secondary} />
-                <Text style={{fontSize: SIZES.large, width: "70%"}}>Mohammad Khalil</Text>
+                <Text style={{fontSize: SIZES.large, width: "70%"}}>{item.name}</Text>
                 <Ionicons name="close-circle-outline" size={26} color={COLORS.danger} />
             </View>
             <View style={styles.body}>
-                <Text>Current place: <Text style={styles.info}>(from GPS)</Text></Text>
-                <Text>Heart beats: <Text style={styles.info}>75 bpm</Text></Text>
-                <Text>Blood preaser: <Text style={styles.info}>122/85 mm Hg</Text></Text>
-                <Text>Body temp.: <Text style={styles.info}>63.3 C</Text></Text>
+                <Text>Current place: <Text style={styles.info}>{item.curPlace}</Text></Text>
+                <Text>Heart beats: <Text style={styles.info}>{item.heartBeat}</Text></Text>
+                <Text>Blood preaser: <Text style={styles.info}>{item.bloodPreaser}</Text></Text>
+                <Text>Body temp.: <Text style={styles.info}>{item.bodyTmp}</Text></Text>
             </View>
         </View>
     );
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     body:{
         backgroundColor: COLORS.primary,
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 15,
         margin: 5,
     },
     info:{
