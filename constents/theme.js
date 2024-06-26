@@ -15,6 +15,8 @@ export const COLORS = {
   bg: '#f2f2f2f1',
   danger: '#B82222',
   success: '#76954D',
+  green: 'green',
+  info: '#eeaa00',
   dark: '#d1d1d1'
 };
 export const FONTS = {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   Pressable,
@@ -10,63 +10,128 @@ import {
   View,
   Modal,
   TouchableOpacity,
+  Button,
+  Alert,
 } from "react-native";
 import { COLORS, SIZES } from "../constents/theme";
 import { Ionicons } from "@expo/vector-icons";
 import Item from "./Item";
+import RandomNumberGenerator from "./RandomNumberGenetator";
+import {
+  addItem,
+  getData,
+  removeItem,
+  storeData,
+} from "../constents/local Storage/Store_Get_Data";
 
 const data = [
   {
-    name: "hisham",
+    id: 1,
+    name: "Hisham",
     curPlace: "(from GPS)",
-    heartBeat: "100 bpm",
-    bloodPreaser: "115/75 mm Hg",
-    bodyTmp: "36.3 C",
+    heartBeat: { min: 88, max: 98, lowLimit: 60, highLimit: 100 },
+    bloodPreaser: [
+      { min: 117, max: 124, lowLimit: 110, highLimit: 130 },
+      { min: 80, max: 92, lowLimit: 75, highLimit: 90 },
+    ],
+    bodyTmp: { min: 35, max: 38, lowLimit: 35, highLimit: 39 },
   },
   {
-    name: "ahmad",
+    id: 2,
+    name: "Ahmad",
     curPlace: "(from GPS)",
-    heartBeat: "78 bpm",
-    bloodPreaser: "122/85 mm Hg",
-    bodyTmp: "38.3 C",
+    heartBeat: { min: 100, max: 106, lowLimit: 60, highLimit: 100 },
+    bloodPreaser: [
+      { min: 120, max: 124, lowLimit: 110, highLimit: 130 },
+      { min: 90, max: 100, lowLimit: 75, highLimit: 90 },
+    ],
+    bodyTmp: { min: 36, max: 38, lowLimit: 35, highLimit: 39 },
   },
-  {
-    name: "ali",
-    curPlace: "(from GPS)",
-    heartBeat: "75 bpm",
-    bloodPreaser: "122/85 mm Hg",
-    bodyTmp: "63.3 C",
-  },
-  {
-    name: "sam",
-    curPlace: "(from GPS)",
-    heartBeat: "75 bpm",
-    bloodPreaser: "122/85 mm Hg",
-    bodyTmp: "63.3 C",
-  },
+  // {
+  //   name: "ali",
+  //   curPlace: "(from GPS)",
+  //   heartBeat: "75 bpm",
+  //   bloodPreaser: "122/85 mm Hg",
+  //   bodyTmp: "63.3 C",
+  // },
+  // {
+  //   name: "sam",
+  //   curPlace: "(from GPS)",
+  //   heartBeat: "75 bpm",
+  //   bloodPreaser: "122/85 mm Hg",
+  //   bodyTmp: "63.3 C",
+  // },
 ];
 
 const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [confirmPanel, setConfirmPanel] = useState(false);
   const [patiants, setPatiants] = useState(data);
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [localData, setLocalData] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [id, setId] = useState(3);
 
+  const key = "myData";
+
+  useEffect(() => {
+    // Fetch data when the component mounts
+    const fetchData = async () => {
+      const storedData = await getData(key);
+      if (storedData) {
+        setLocalData(storedData);
+        console.log("get data")
+      }
+    };
+    if (patiants != localData) {
+      handleStoreData();
+    }
+    fetchData();
+  }, [patiants]);
+
+  const handleStoreData = async () => {
+    await storeData(key, patiants);
+    setLocalData(patiants);
+  };
 
 
   const addPatiant = () => {
+
+    if (!username) {
+      setModalVisible(true);
+      return;
+    }
     const patiant = {
-        name: username,
-        curPlace: location || "(from GPS)",
-        heartBeat: "75 bpm",
-        bloodPreaser: "122/85 mm Hg",
-        bodyTmp: "63.3 C",
+      id: id,
+      name: username,
+      curPlace: location || "(from GPS)",
+      heartBeat: { min: 88, max: 98, lowLimit: 60, highLimit: 100 },
+      bloodPreaser: [
+        { min: 117, max: 124, lowLimit: 110, highLimit: 130 },
+        { min: 80, max: 92, lowLimit: 75, highLimit: 90 },
+      ],
+      bodyTmp: { min: 35, max: 38, lowLimit: 35, highLimit: 39 },
     };
     setPatiants([...patiants, patiant]);
-    setUsername('');
-    setLocation('');
-    setModalVisible(!modalVisible)
+    // console.log(patiants)
+    setLocalData([...patiants, patiant]);
+    setId(id + 1);
+    setUsername("");
+    setLocation("");
+    setModalVisible(!modalVisible);
+  };
+
+  const filteredData = localData.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const onConfirmPanel = () => {
+    setConfirmPanel(!confirmPanel)
   }
+
+  console.log('Render');
 
   return (
     <View style={styles.container}>
@@ -191,6 +256,8 @@ const Home = () => {
             style={styles.inputSearch}
             editable
             placeholder="search here..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
           />
         </SafeAreaView>
         <TouchableOpacity
@@ -200,9 +267,14 @@ const Home = () => {
           <Ionicons name="person-add" size={26} color={COLORS.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
-        {patiants.map((item, index) => {
-          return <Item key={index} item={item} />;
+      {/* <Button title="Store Data" onPress={handleStoreData} /> */}
+      {/* <Text>{scrollPosition}</Text> */}
+      <ScrollView
+        style={styles.list}
+        showsVerticalScrollIndicator={false}
+      >
+        {filteredData.map((item, index) => {
+          return <Item key={index} item={item} confirm={onConfirmPanel}/>;
         })}
         <View style={styles.emptyView}></View>
       </ScrollView>
