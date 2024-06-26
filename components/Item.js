@@ -5,22 +5,27 @@ import { COLORS, SIZES, FONTS } from "../constents/theme";
 import RandomNumberGenerator from "./RandomNumberGenetator";
 
 const Item = ({ item }) => {
-    const [display, setDisplay] = useState('display');
-    
-    const heartBeatInterval = 60000;
-    const bloodPreaserInterval = 5000;
-    const bodyTmpInterval = 60000;
+  const [display, setDisplay] = useState("display");
 
-    const fun = () => {
-      setDisplay("none")
-    }
+  const heartBeatInterval = 10000;
+  const bloodPreaserInterval = 4000;
+  const bodyTmpInterval = 10000;
+
+  const fun = () => {
+    setDisplay("none");
+  };
 
   return (
-    <View style={[styles.container, {display: display}]}>
+    <View style={[styles.container, { display: display }]}>
       <View style={styles.header}>
-        <Ionicons name="person-circle" size={50} color={COLORS.secondary}/>
+        <Ionicons name="person-circle" size={50} color={COLORS.secondary} />
         <Text style={{ fontSize: SIZES.large, width: "70%" }}>{item.name}</Text>
-            <Ionicons name="close-circle-outline" size={26} color={COLORS.danger} onPress={fun}/>
+        <Ionicons
+          name="close-circle-outline"
+          size={26}
+          color={COLORS.danger}
+          onPress={fun}
+        />
       </View>
       <View style={styles.body}>
         <View style={styles.data}>
@@ -30,7 +35,12 @@ const Item = ({ item }) => {
         </View>
         <View style={styles.data}>
           {/* {<Ionicons name="medkit-outline" size={20} color={COLORS.secondary} />} */}
-          {<Ionicons name="medkit" size={20} color={COLORS.danger} />}
+          {item.heartBeat.min < item.heartBeat.lowLimit ||
+          item.heartBeat.max > item.heartBeat.highLimit ? (
+            <Ionicons name="medkit" size={20} color={COLORS.danger} />
+          ) : (
+            <Ionicons name="medkit-outline" size={20} color={COLORS.green} />
+          )}
           <Text>Heart beats:</Text>
           <RandomNumberGenerator
             min={item.heartBeat.min}
@@ -42,7 +52,14 @@ const Item = ({ item }) => {
           <Text style={styles.info}>bpm</Text>
         </View>
         <View style={styles.data}>
-        <Ionicons name="medkit-outline" size={20} color={COLORS.green} />
+          {item.bloodPreaser[0].min < item.bloodPreaser[0].lowLimit ||
+          item.bloodPreaser[0].max > item.bloodPreaser[0].highLimit ||
+          item.bloodPreaser[1].min < item.bloodPreaser[1].lowLimit ||
+          item.bloodPreaser[1].max > item.bloodPreaser[1].highLimit ? (
+            <Ionicons name="medkit" size={20} color={COLORS.info} />
+          ) : (
+            <Ionicons name="medkit-outline" size={20} color={COLORS.green} />
+          )}
           <Text>Blood preaser: </Text>
           <Text style={styles.info}></Text>
           <RandomNumberGenerator
@@ -63,7 +80,12 @@ const Item = ({ item }) => {
           <Text>mm Hg</Text>
         </View>
         <View style={styles.data}>
-          <Ionicons name="medkit" size={20} color={COLORS.info} />
+          {
+            (item.bodyTmp.min < item.bodyTmp.lowLimit || item.bodyTmp.lowLimit > item.bodyTmp.highLimit) ?
+            <Ionicons name="medkit" size={20} color={COLORS.info} />
+            :
+            <Ionicons name="medkit-outline" size={20} color={COLORS.green} />
+          }
           <Text>Body temp.:</Text>
           <RandomNumberGenerator
             min={item.bodyTmp.min}

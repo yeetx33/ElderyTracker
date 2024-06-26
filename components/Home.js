@@ -32,7 +32,7 @@ const data = [
     heartBeat: { min: 88, max: 98, lowLimit: 60, highLimit: 100 },
     bloodPreaser: [
       { min: 117, max: 124, lowLimit: 110, highLimit: 130 },
-      { min: 80, max: 92, lowLimit: 75, highLimit: 90 },
+      { min: 87, max: 92, lowLimit: 75, highLimit: 90 },
     ],
     bodyTmp: { min: 35, max: 38, lowLimit: 35, highLimit: 39 },
   },
@@ -42,7 +42,7 @@ const data = [
     curPlace: "(from GPS)",
     heartBeat: { min: 100, max: 106, lowLimit: 60, highLimit: 100 },
     bloodPreaser: [
-      { min: 120, max: 124, lowLimit: 110, highLimit: 130 },
+      { min: 125, max: 132, lowLimit: 110, highLimit: 130 },
       { min: 90, max: 100, lowLimit: 75, highLimit: 90 },
     ],
     bodyTmp: { min: 36, max: 38, lowLimit: 35, highLimit: 39 },
@@ -110,9 +110,9 @@ const Home = () => {
       heartBeat: { min: 88, max: 98, lowLimit: 60, highLimit: 100 },
       bloodPreaser: [
         { min: 117, max: 124, lowLimit: 110, highLimit: 130 },
-        { min: 80, max: 92, lowLimit: 75, highLimit: 90 },
+        { min: 80, max: 85, lowLimit: 75, highLimit: 90 },
       ],
-      bodyTmp: { min: 35, max: 38, lowLimit: 35, highLimit: 39 },
+      bodyTmp: { min: 36, max: 37, lowLimit: 35, highLimit: 39 },
     };
     setPatiants([...patiants, patiant]);
     // console.log(patiants)
